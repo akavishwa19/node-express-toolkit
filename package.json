@@ -1,0 +1,40 @@
+{
+  "name": "using_typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "format": "prettier --log-level=silent --write .",
+    "format:check": "prettier --log-level=silent --check .",
+    "clean": "rm -rf dist",
+    "build": "tsc --project tsconfig.json",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon",
+    "start:dev": "node dist/app.js",
+    "start": "npm run clean && npm run build && npm run start:dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.1",
+    "eslint": "^9.39.2",
+    "globals": "^17.3.0",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.8.1",
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^8.54.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.4",
+    "express": "^5.2.1",
+    "mysql2": "^3.16.3",
+    "typescript": "^5.9.3",
+    "uuid": "^13.0.0"
+  }
+}
