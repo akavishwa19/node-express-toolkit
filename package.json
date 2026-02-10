@@ -2,7 +2,7 @@
   "name": "using_typescript",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app",
   "scripts": {
     "format": "prettier --log-level=silent --write .",
     "format:check": "prettier --log-level=silent --check .",
@@ -13,7 +13,8 @@
     "lint:fix": "eslint --fix src",
     "dev": "nodemon",
     "start:dev": "node dist/app.js",
-    "start": "npm run clean && npm run build && npm run start:dev"
+    "start": "npm run clean && npm run build && npm run start:dev",
+    "version": "echo $npm_package_version"
   },
   "keywords": [],
   "author": "",
@@ -41,6 +42,7 @@
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "mysql2": "^3.16.3",
+    "pino": "^10.3.1",
     "typescript": "^5.9.3",
     "uuid": "^13.0.0"
   }
