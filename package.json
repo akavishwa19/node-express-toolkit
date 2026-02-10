@@ -1,7 +1,7 @@
 {
-  "name": "using_typescript",
+  "name": "node_express_setup",
   "version": "1.0.0",
-  "description": "",
+  "description": "starter kit for node aplications in express and typescript",
   "main": "src/app",
   "scripts": {
     "format": "prettier --log-level=silent --write .",
@@ -16,9 +16,13 @@
     "start": "npm run clean && npm run build && npm run start:dev",
     "version": "echo $npm_package_version"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "express",
+    "nodejs",
+    "typescript"
+  ],
+  "author": "Akash Vishwakarma",
+  "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
     "@eslint/js": "^9.39.2",

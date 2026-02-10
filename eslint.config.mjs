@@ -20,9 +20,9 @@ export default defineConfig([
     }
   },
   {
-    rules:{
-      eqeqeq: ["error", "smart"],
-      complexity: ['error', 8],
+    rules: {
+      eqeqeq: ['error', 'smart'],
+      complexity: ['error', 8]
       // 'no-console': "error"
     }
   },
