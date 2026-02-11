@@ -1,4 +1,5 @@
-import mysql, { PoolOptions } from 'mysql2/promise'
+import mysql, { PoolOptions } from 'mysql2/promise';
+import logger from '../utils/logger';
 
 const dbConfig: PoolOptions = {
   host: process.env.DB_HOST,
@@ -6,19 +7,19 @@ const dbConfig: PoolOptions = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
-}
+};
 
-const dbClient = mysql.createPool(dbConfig)
+const dbClient = mysql.createPool(dbConfig);
 
 const connectToDb = async (): Promise<void> => {
   try {
-    const connection = await dbClient.getConnection()
-    console.log('connected to database')
-    connection.release()
+    const connection = await dbClient.getConnection();
+    logger.info('connected to database');
+    connection.release();
   } catch (error) {
-    console.log(error)
-    process.exit(1)
+    logger.error({ error }, 'error connecting to database');
+    throw error;
   }
-}
+};
 
-export { dbClient, connectToDb }
+export { dbClient, connectToDb };

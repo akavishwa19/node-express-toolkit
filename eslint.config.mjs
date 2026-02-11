@@ -22,8 +22,9 @@ export default defineConfig([
   {
     rules: {
       eqeqeq: ['error', 'smart'],
-      complexity: ['error', 8]
-      // 'no-console': "error"
+      complexity: ['error', 8],
+      'no-console': "error",
+       "semi": [2, "always"]
     }
   },
   tseslint.configs.recommended,

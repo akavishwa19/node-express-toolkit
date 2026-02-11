@@ -1,6 +1,6 @@
-import { dbClient } from './client'
+import { dbClient } from './client';
 
-const CURRENT_SCHEMA_VERSION = 1
+const CURRENT_SCHEMA_VERSION = 1;
 
 const CREATE_TABLE_USERS = `
 create table if not exists users(
@@ -13,16 +13,16 @@ create table if not exists users(
     updated_at timestamp on update current_timestamp default null,
     is_active boolean default true
 );
-`
+`;
 
 const onSchemaInit = async () => {
-  await dbClient.query(CREATE_TABLE_USERS)
-}
+  await dbClient.query(CREATE_TABLE_USERS);
+};
 
 const onSchemaMigration = async (schemaVersion: number) => {
   if (schemaVersion > CURRENT_SCHEMA_VERSION) {
-    await dbClient.query(CREATE_TABLE_USERS)
+    await dbClient.query(CREATE_TABLE_USERS);
   }
-}
+};
 
-export { onSchemaInit, onSchemaMigration }
+export { onSchemaInit, onSchemaMigration };
