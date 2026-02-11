@@ -8,9 +8,9 @@
     "format:check": "prettier --log-level=silent --check .",
     "clean": "rm -rf dist",
     "build": "tsc --project tsconfig.json",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src",
-    "lint:fix": "eslint --fix src",
+    "test": "jest",
+    "lint": "eslint src tests",
+    "lint:fix": "eslint --fix src tests",
     "dev": "nodemon",
     "start:dev": "node dist/app.js",
     "start": "npm run clean && npm run build && npm run start:dev",
@@ -21,7 +21,8 @@
   "keywords": [
     "express",
     "nodejs",
-    "typescript"
+    "typescript",
+    "jest"
   ],
   "author": "Akash Vishwakarma",
   "license": "MIT",
@@ -30,6 +31,7 @@
     "@eslint/js": "^9.39.2",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/jest": "^30.0.0",
     "@types/node": "^25.2.1",
     "@typescript-eslint/eslint-plugin": "^8.54.0",
     "@typescript-eslint/parser": "^8.54.0",
@@ -38,8 +40,10 @@
     "eslint-plugin-n": "^17.23.2",
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.3.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.8.1",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "typescript-eslint": "^8.54.0"
   },

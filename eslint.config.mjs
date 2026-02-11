@@ -1,9 +1,9 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import tseslint from 'typescript-eslint'
-import { defineConfig, globalIgnores } from 'eslint/config'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
-import nodePlugin from 'eslint-plugin-n'
+import js from '@eslint/js';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import nodePlugin from 'eslint-plugin-n';
 
 export default defineConfig([
   {
@@ -23,10 +23,10 @@ export default defineConfig([
     rules: {
       eqeqeq: ['error', 'smart'],
       complexity: ['error', 8],
-      'no-console': "error",
-       "semi": [2, "always"]
+      'no-console': 'error',
+      semi: [2, 'always']
     }
   },
   tseslint.configs.recommended,
   eslintPluginPrettierRecommended
-])
+]);
