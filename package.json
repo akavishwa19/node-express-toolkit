@@ -34,7 +34,8 @@
     "preversion": "npm run lint && npm run test",
     "version:write": "node src/scripts/versionUpdate.mjs && npm run lint:fix",
     "version": "echo $npm_package_version",
-    "prepare": "husky"
+    "prepare": "husky",
+    "changelog:write": "node src/scripts/updateChangelog.mjs"
   },
   "dependencies": {
     "cors": "^2.8.6",
