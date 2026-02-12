@@ -1,6 +1,6 @@
 {
   "name": "node_express_toolkit",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "starter kit for node aplications in express and typescript",
   "keywords": [
     "express",
