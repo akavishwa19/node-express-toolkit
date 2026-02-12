@@ -33,3 +33,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### UPDATE
 -  package json improvements
+
+---
+### [v1.0.1] - 2026-02-13
+---
+
+### FEAT
+-  add changelog script
+
+### UPDATE
+-  changelog.md
+-  improve error message for changelog script, update changelog.md
