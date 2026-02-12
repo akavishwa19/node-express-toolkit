@@ -22,7 +22,7 @@ async function switchToMain() {
 async function getLatestTags() {
   const tags = await git.tags({ '--sort': '-v:refname' });
   if (!tags) {
-    throw new Error('Tags not found');
+    throw new Error('Tags not found , cant update CHANGELOG');
   }
 
   return {
