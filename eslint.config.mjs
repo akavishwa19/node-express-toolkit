@@ -10,7 +10,15 @@ export default defineConfig([
     files: ['**/*.{ts,mts,cts}'],
     plugins: { js },
     extends: ['js/recommended'],
-    languageOptions: { globals: globals.browser }
+    languageOptions: { globals: globals.browser },
+    rules: {
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_'
+        }
+      ]
+    }
   },
   globalIgnores(['dist/', 'node_modules/']),
   {
