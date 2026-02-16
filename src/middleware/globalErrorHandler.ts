@@ -9,7 +9,7 @@ export const globalErrorHandler: ErrorRequestHandler = (
   _next
 ) => {
   if (error instanceof DbError) {
-    logger.error({error},error.message);
+    logger.error({ error }, error.message);
     return res.status(error.httpCode).json({
       status: 'error',
       message: error.message
@@ -17,14 +17,14 @@ export const globalErrorHandler: ErrorRequestHandler = (
   }
 
   if (error instanceof AppError) {
-    logger.error({error},error.message);
+    logger.error({ error }, error.message);
     return res.status(error.httpCode).json({
       status: 'error',
       message: error.message
     });
   }
 
-  logger.error({error},'Internal server error');
+  logger.error({ error }, 'Internal server error');
   return res.status(500).json({
     status: 'error',
     message: 'Internal server error'

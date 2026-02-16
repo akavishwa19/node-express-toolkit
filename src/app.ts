@@ -6,6 +6,8 @@ import logger from './utils/logger';
 import { Server } from 'http';
 import { connectToDb } from './db/client';
 import validateEnvs from './utils/validateEnv';
+import { globalErrorHandler } from './middleware/globalErrorHandler';
+import userRouter from '../src/routes/user';
 
 const app = express();
 
@@ -25,7 +27,14 @@ app.get('/healthz', (req: Request, res: Response) => {
 const port = process.env.PORT;
 let server: Server | undefined;
 
+function setupRoutes() {
+  app.use('/api/v1/users', userRouter);
+  app.use(globalErrorHandler);
+}
+
 const startServer = async () => {
+  validateEnvs();
+  setupRoutes();
   await connectToDb();
   server = app.listen(port, () => {
     logger.info('app listening on http://localhost:' + port);
@@ -62,13 +71,8 @@ process.on('unhandledRejection', (error) => {
   stopServer('UNHANDLED_REJECTION', 1);
 });
 
-if (process.env.NODE_ENV !== 'test') {
-  bootstrapApplication();
-}
-
 async function bootstrapApplication() {
   try {
-    validateEnvs();
     await startServer();
   } catch (error) {
     if (error instanceof Error) {
@@ -81,6 +85,10 @@ async function bootstrapApplication() {
     }
     stopServer('STARTUP_ERROR', 1);
   }
+}
+
+if (process.env.NODE_ENV !== 'test') {
+  bootstrapApplication();
 }
 
 export { bootstrapApplication };
