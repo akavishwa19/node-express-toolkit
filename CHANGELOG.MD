@@ -56,3 +56,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - changelog.md
 - improve error message for changelog script, update changelog.md
+
+---
+### [v1.1.0] - 2026-02-13
+---
+
+### FEAT
+-  standardize api response and other utils into app
+-  add utils for error handling
+-  update lint rules to handle unused argument syntax
+
+### CHORE
+-  keep public directory to git repo
+
+### UPDATE
+-  changelog.md
