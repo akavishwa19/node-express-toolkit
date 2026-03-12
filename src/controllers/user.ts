@@ -7,7 +7,7 @@ export async function create(req: Request, res: Response) {
   const payload = req.body as UserPayload;
   const id = await UserService.create(payload);
   return res
-    .status(200)
+    .status(201)
     .json(new AppResponse('User created succesfully', { id }));
 }
 
