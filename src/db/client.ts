@@ -16,9 +16,9 @@ const connectToDb = async (): Promise<void> => {
     const connection = await dbClient.getConnection();
     logger.info('connected to database');
     connection.release();
-  } catch (error) {
+  } catch (error: unknown) {
     logger.error({ error }, 'error connecting to database');
-    throw error;
+    throw new Error('error connecting to database');
   }
 };
 
