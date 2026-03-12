@@ -7,12 +7,14 @@ import { Server } from 'http';
 import { connectToDb } from './db/client';
 import validateEnvs from './utils/validateEnv';
 import { globalErrorHandler } from './middleware/globalErrorHandler';
-import userRouter from '../src/routes/user';
+import router from '../src/routes';
+import { requestLogger } from './middleware/requestLogger';
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(requestLogger());
 
 app.get('/healthz', (req: Request, res: Response) => {
   logger.info('incoming request for /healthz');
@@ -28,7 +30,7 @@ const port = process.env.PORT;
 let server: Server | undefined;
 
 function setupRoutes() {
-  app.use('/api/v1/users', userRouter);
+  app.use('/api/v1', router);
   app.use(globalErrorHandler);
 }
 

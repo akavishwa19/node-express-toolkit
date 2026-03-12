@@ -1,7 +1,7 @@
 import express from 'express';
 import { create, update, remove, get, list } from '../controllers/user';
 import { schemaValidation } from '../middleware/schemaValidation';
-import { UserSchema } from '../schema/user';
+import { UserSchema } from '../validators/user';
 
 const router = express.Router();
 

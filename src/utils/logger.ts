@@ -7,6 +7,9 @@ const transport = pino.transport({
   }
 });
 
-const logger = pino(transport);
+const options =
+  process.env.NODE_ENV === 'development' ? { level: 'trace' } : {};
+
+const logger = pino(options, transport);
 
 export default logger;
