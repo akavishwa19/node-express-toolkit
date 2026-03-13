@@ -3,3 +3,4 @@
 .env
 /coverage
 docker.env
+.scannerwork
