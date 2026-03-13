@@ -35,7 +35,12 @@
     "version:write": "node src/scripts/versionUpdate.mjs && npm run lint:fix",
     "version": "echo $npm_package_version",
     "prepare": "husky",
-    "changelog:write": "node src/scripts/updateChangelog.mjs"
+    "changelog:write": "node src/scripts/updateChangelog.mjs",
+    "docker:build":"docker compose build",
+    "docker:up":"docker compose up -d",
+    "docker:down":"docker compose down",
+    "docker:up:build":"docker compose up -d --build",
+    "docker:recreate":"npm run docker:down && npm run docker:up:build"
   },
   "dependencies": {
     "cors": "^2.8.6",
