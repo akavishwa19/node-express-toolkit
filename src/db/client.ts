@@ -14,7 +14,7 @@ const dbClient = mysql.createPool(dbConfig);
 const connectToDb = async (): Promise<void> => {
   try {
     const connection = await dbClient.getConnection();
-    logger.info('connected to database');
+    logger.info('connected to database successfully');
     connection.release();
   } catch (error: unknown) {
     logger.error({ error }, 'error connecting to database');

@@ -9,6 +9,7 @@ import validateEnvs from './utils/validateEnv';
 import { globalErrorHandler } from './middleware/globalErrorHandler';
 import router from '../src/routes';
 import { requestLogger } from './middleware/requestLogger';
+import { runMigrations } from './db/migrate';
 
 const app = express();
 
@@ -38,6 +39,7 @@ const startServer = async () => {
   validateEnvs();
   setupRoutes();
   await connectToDb();
+  await runMigrations();
   server = app.listen(port, () => {
     logger.info('app listening on http://localhost:' + port);
   });
