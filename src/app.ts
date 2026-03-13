@@ -7,7 +7,7 @@ import { Server } from 'http';
 import { connectToDb } from './db/client';
 import validateEnvs from './utils/validateEnv';
 import { globalErrorHandler } from './middleware/globalErrorHandler';
-import router from '../src/routes';
+import router from './routes';
 import { requestLogger } from './middleware/requestLogger';
 import { runMigrations } from './db/migrate';
 

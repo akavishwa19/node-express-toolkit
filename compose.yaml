@@ -1,0 +1,36 @@
+
+services:
+  node-app:
+    build:
+      context: .
+    container_name: node-api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env
+    volumes:
+      - .:/usr/src/app
+
+  db:
+    image: mysql:latest
+    restart: always
+    container_name: mysql
+    env_file:
+      - ./docker.env
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    ports:
+      - 33306:3306  
+    
+volumes:
+  db_data:

@@ -26,6 +26,9 @@ export class UserService {
       await Users.update(id, payload);
       return id;
     } catch (error: unknown) {
+      if (error instanceof AppError) {
+        throw error;
+      }
       if (error instanceof Error) {
         throw new AppError(error.message, 500);
       }
@@ -41,6 +44,9 @@ export class UserService {
       }
       return data;
     } catch (error) {
+      if (error instanceof AppError) {
+        throw error;
+      }
       if (error instanceof Error) {
         throw new AppError(error.message, 500);
       }
