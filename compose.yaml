@@ -14,7 +14,10 @@ services:
     env_file:
       - ./.env
     volumes:
-      - .:/usr/src/app
+      - type: bind
+        source: './'
+        target: '/usr/src/app'
+        read_only: true      
 
   db:
     image: mysql:latest

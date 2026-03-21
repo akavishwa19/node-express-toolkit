@@ -10,7 +10,7 @@ RUN npm ci
 
 COPY . .
 
-USER root
+USER nodeUser
 
 EXPOSE 3000
 
