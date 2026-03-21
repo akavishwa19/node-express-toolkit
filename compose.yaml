@@ -3,6 +3,7 @@ services:
   node-app:
     build:
       context: .
+      dockerfile: './containers/Dockerfile'
     container_name: node-api
     depends_on:
       db:
