@@ -9,6 +9,7 @@ import { connectToDb } from './db/client';
 import validateEnvs from './utils/validateEnv';
 import { globalErrorHandler } from './middleware/globalErrorHandler';
 import router from './routes';
+import swaggerRouter from './config/openapi';
 import { requestLogger } from './middleware/requestLogger';
 import { runMigrations } from './db/migrate';
 import { gloabalLimiter } from './middleware/rateLimit';
@@ -35,6 +36,7 @@ const port = process.env.PORT;
 let server: Server | undefined;
 
 function setupRoutes() {
+  app.use('/api-docs', swaggerRouter);
   app.use('/api/v1', router);
   app.use(globalErrorHandler);
 }

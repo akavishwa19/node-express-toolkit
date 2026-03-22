@@ -1,0 +1,329 @@
+openapi: "3.0.0"
+info:
+  version: 1.1.0
+  title: Node Express Toolkit API
+  description: REST API built with Node.js, Express and TypeScript
+  contact:
+    name: Akash Vishwakarma
+    email: akash19102001@gmail.com
+    url: https://www.akashvishwakarma.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3000
+    description: Local development server
+
+tags:
+  - name: Health Check
+    description: Service health monitoring
+  - name: Users
+    description: User management operations
+
+paths:
+  /healthz:
+    get:
+      summary: Health check
+      description: Returns the health status of the service
+      operationId: healthCheck
+      tags:
+        - Health Check
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  host:
+                    type: string
+                    example: localhost:3000
+                  method:
+                    type: string
+                    example: GET
+                  status:
+                    type: string
+                    example: healthy
+                  code:
+                    type: integer
+                    example: 200
+
+  /api/v1/users:
+    post:
+      summary: Create a new user
+      description: Creates a new user with the provided payload
+      operationId: createUser
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPayload"
+      responses:
+        "201":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SuccessResponse"
+                  - type: object
+                    properties:
+                      message:
+                        example: User created succesfully
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            example: 550e8400-e29b-41d4-a716-446655440000
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "409":
+          description: User with this email or username already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    get:
+      summary: Get a user by ID
+      description: Fetches a single user by their ID
+      operationId: getUser
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      responses:
+        "200":
+          description: User fetched successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SuccessResponse"
+                  - type: object
+                    properties:
+                      message:
+                        example: User fetched succesfully
+                      data:
+                        $ref: "#/components/schemas/User"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    put:
+      summary: Update a user
+      description: Updates an existing user with the provided payload
+      operationId: updateUser
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPayload"
+      responses:
+        "200":
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SuccessResponse"
+                  - type: object
+                    properties:
+                      message:
+                        example: User updated succesfully
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+    delete:
+      summary: Delete a user
+      description: Deletes a user by their ID
+      operationId: deleteUser
+      tags:
+        - Users
+      parameters:
+        - $ref: "#/components/parameters/UserId"
+      responses:
+        "200":
+          description: User removed successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SuccessResponse"
+                  - type: object
+                    properties:
+                      message:
+                        example: User removed succesfully
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+  /api/v1/users/list:
+    get:
+      summary: List all users
+      description: Returns a list of all users
+      operationId: listUsers
+      tags:
+        - Users
+      responses:
+        "200":
+          description: User list fetched successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/SuccessResponse"
+                  - type: object
+                    properties:
+                      message:
+                        example: User list fetched succesfully
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/User"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+
+components:
+  parameters:
+    UserId:
+      name: id
+      in: query
+      required: true
+      description: The UUID of the user
+      schema:
+        type: string
+        format: uuid
+        example: 550e8400-e29b-41d4-a716-446655440000
+
+  schemas:
+    UserPayload:
+      type: object
+      required:
+        - username
+        - email
+        - password
+        - age
+      properties:
+        username:
+          type: string
+          example: johndoe
+        email:
+          type: string
+          format: email
+          example: johndoe@example.com
+        password:
+          type: string
+          format: password
+          example: securepassword123
+        age:
+          type: integer
+          minimum: 1
+          example: 25
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        username:
+          type: string
+          example: johndoe
+        email:
+          type: string
+          format: email
+          example: johndoe@example.com
+        age:
+          type: integer
+          example: 25
+        created_at:
+          type: string
+          format: date-time
+          example: "2026-03-22T10:30:00.000Z"
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: null
+        is_active:
+          type: boolean
+          example: true
+
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        data:
+          nullable: true
+        success:
+          type: boolean
+          example: true
+
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+        message:
+          type: string
+
+  responses:
+    BadRequest:
+      description: Invalid request payload
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorResponse"
+              - type: object
+                properties:
+                  message:
+                    example: Invalid payload
+
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorResponse"
+              - type: object
+                properties:
+                  message:
+                    example: User does not exist
+
+    InternalServerError:
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/ErrorResponse"
+              - type: object
+                properties:
+                  message:
+                    example: Internal server error
