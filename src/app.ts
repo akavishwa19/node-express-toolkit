@@ -1,6 +1,7 @@
 import express from 'express';
 import type { Request, Response } from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
 import 'dotenv/config';
 import logger from './utils/logger';
 import { Server } from 'http';
@@ -15,6 +16,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 app.use(requestLogger());
 
 app.get('/healthz', (req: Request, res: Response) => {
