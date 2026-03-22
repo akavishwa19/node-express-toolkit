@@ -8,6 +8,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      kafka:
+        condition: service_started
     environment:
       NODE_ENV: development
     ports:
@@ -35,6 +37,14 @@ services:
       retries: 3
     ports:
       - 33306:3306  
+
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka
+    ports:
+      - "9092:9092"
+    env_file:
+      - ./kafka.env 
     
 volumes:
   db_data:

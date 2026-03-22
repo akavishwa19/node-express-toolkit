@@ -4,5 +4,8 @@ export const REQUIRED_ENVS = [
   'DB_HOST',
   'DB_USER',
   'DB_PASSWORD',
-  'DB_NAME'
+  'DB_NAME',
+  'KAFKA_CLIENT_ID',
+  'KAFKA_BROKER',
+  'KAFKA_CONSUMER_GROUP_ID'
 ];

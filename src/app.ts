@@ -13,6 +13,12 @@ import swaggerRouter from './config/openapi';
 import { requestLogger } from './middleware/requestLogger';
 import { runMigrations } from './db/migrate';
 import { gloabalLimiter } from './middleware/rateLimit';
+// import {
+//   connectProducer,
+//   publishToTopic,
+//   disconnectProducer
+// } from './kafkaProducer';
+// import { connectConsumer ,listenToTopic , disconnectConsumer } from './kafkaConsumer';
 
 const app = express();
 
@@ -46,13 +52,25 @@ const startServer = async () => {
   setupRoutes();
   await connectToDb();
   await runMigrations();
+  // await connectProducer();
+  // await connectConsumer();
+  // await publishToTopic('test-topic', 'test-message');
+  // await listenToTopic('test-topic');
   server = app.listen(port, () => {
     logger.info('app listening on http://localhost:' + port);
   });
 };
 
-function stopServer(signal: string, code: number) {
+async function stopServer(signal: string, code: number) {
   logger.info(`recieved ${signal} , stopping server gracefully`);
+
+  try {
+    // await disconnectProducer();
+    // await disconnectConsumer();
+  } catch (error) {
+    logger.error({ error }, 'Error disconnecting kafka , force quitting app');
+  }
+
   if (server) {
     server.close(() => {
       logger.info('server closed succesfully');
@@ -63,22 +81,22 @@ function stopServer(signal: string, code: number) {
   }
 }
 
-process.once('SIGINT', () => {
-  stopServer('SIGINT', 0);
+process.once('SIGINT', async () => {
+  await stopServer('SIGINT', 0);
 });
 
-process.once('SIGTERM', () => {
-  stopServer('SIGTERM', 0);
+process.once('SIGTERM', async () => {
+  await stopServer('SIGTERM', 0);
 });
 
-process.on('uncaughtException', (error) => {
+process.on('uncaughtException', async (error) => {
   logger.error({ error }, 'uncaught exception');
-  stopServer('UNCAUGHT_EXCEPTION', 1);
+  await stopServer('UNCAUGHT_EXCEPTION', 1);
 });
 
-process.on('unhandledRejection', (error) => {
+process.on('unhandledRejection', async (error) => {
   logger.error({ error }, 'unhandled rejection');
-  stopServer('UNHANDLED_REJECTION', 1);
+  await stopServer('UNHANDLED_REJECTION', 1);
 });
 
 async function bootstrapApplication() {
