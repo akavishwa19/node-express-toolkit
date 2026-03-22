@@ -11,12 +11,14 @@ import { globalErrorHandler } from './middleware/globalErrorHandler';
 import router from './routes';
 import { requestLogger } from './middleware/requestLogger';
 import { runMigrations } from './db/migrate';
+import { gloabalLimiter } from './middleware/rateLimit';
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(helmet());
+app.use(gloabalLimiter);
 app.use(requestLogger());
 
 app.get('/healthz', (req: Request, res: Response) => {
