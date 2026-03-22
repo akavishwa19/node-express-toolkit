@@ -38,3 +38,8 @@ services:
     
 volumes:
   db_data:
+
+networks:
+  default:
+    name: node-toolkit-network
+    driver: bridge
