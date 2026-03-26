@@ -44,6 +44,7 @@
     "docker:recreate": "npm run docker:down && npm run docker:up:build"
   },
   "dependencies": {
+    "amqplib": "^0.10.9",
     "@redocly/cli": "^2.26.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
@@ -63,6 +64,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@types/amqplib": "^0.10.8",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
