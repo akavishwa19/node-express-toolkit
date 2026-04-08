@@ -26,8 +26,9 @@
     "build": "tsc --project tsconfig.json",
     "test": "jest",
     "test:coverage": "jest --coverage",
-    "lint": "eslint src tests",
+    "lint": "eslint src tests && npm run lint:openapi",
     "lint:fix": "eslint --fix src tests",
+    "lint:openapi": "redocly lint docs/openapi.yaml",
     "dev": "nodemon",
     "start:dev": "node dist/app.js",
     "start": "npm run clean && npm run build && npm run start:dev",
@@ -43,6 +44,7 @@
     "docker:recreate": "npm run docker:down && npm run docker:up:build"
   },
   "dependencies": {
+    "@redocly/cli": "^2.26.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
