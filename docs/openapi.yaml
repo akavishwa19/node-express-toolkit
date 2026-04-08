@@ -1,4 +1,5 @@
 openapi: "3.0.0"
+
 info:
   version: 1.1.0
   title: Node Express Toolkit API
@@ -12,14 +13,17 @@ info:
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: http://localhost:3000
-    description: Local development server
+  - url: https://api.sample.com
+    description: sample server
 
 tags:
   - name: Health Check
     description: Service health monitoring
   - name: Users
     description: User management operations
+
+security:
+  - bearerAuth: []
 
 paths:
   /healthz:
@@ -29,6 +33,7 @@ paths:
       operationId: healthCheck
       tags:
         - Health Check
+      security: []
       responses:
         "200":
           description: Service is healthy
@@ -49,6 +54,10 @@ paths:
                   code:
                     type: integer
                     example: 200
+        "400":
+          $ref: "#/components/responses/BadRequest"            
+        "500":
+          $ref: "#/components/responses/InternalServerError"
 
   /api/v1/users:
     post:
@@ -74,7 +83,7 @@ paths:
                   - type: object
                     properties:
                       message:
-                        example: User created succesfully
+                        example: User created successfully
                       data:
                         type: object
                         properties:
@@ -112,9 +121,11 @@ paths:
                   - type: object
                     properties:
                       message:
-                        example: User fetched succesfully
+                        example: User fetched successfully
                       data:
                         $ref: "#/components/schemas/User"
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -145,7 +156,7 @@ paths:
                   - type: object
                     properties:
                       message:
-                        example: User updated succesfully
+                        example: User updated successfully
         "400":
           $ref: "#/components/responses/BadRequest"
         "404":
@@ -172,7 +183,9 @@ paths:
                   - type: object
                     properties:
                       message:
-                        example: User removed succesfully
+                        example: User removed successfully
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "404":
           $ref: "#/components/responses/NotFound"
         "500":
@@ -196,15 +209,23 @@ paths:
                   - type: object
                     properties:
                       message:
-                        example: User list fetched succesfully
+                        example: User list fetched successfully
                       data:
                         type: array
                         items:
                           $ref: "#/components/schemas/User"
+        "400":
+          $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/InternalServerError"
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
   parameters:
     UserId:
       name: id
@@ -247,29 +268,22 @@ components:
         id:
           type: string
           format: uuid
-          example: 550e8400-e29b-41d4-a716-446655440000
         username:
           type: string
-          example: johndoe
         email:
           type: string
           format: email
-          example: johndoe@example.com
         age:
           type: integer
-          example: 25
         created_at:
           type: string
           format: date-time
-          example: "2026-03-22T10:30:00.000Z"
         updated_at:
           type: string
           format: date-time
           nullable: true
-          example: null
         is_active:
           type: boolean
-          example: true
 
     SuccessResponse:
       type: object
@@ -277,6 +291,7 @@ components:
         message:
           type: string
         data:
+          type: object
           nullable: true
         success:
           type: boolean
