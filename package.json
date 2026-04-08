@@ -1,6 +1,6 @@
 {
   "name": "node_express_toolkit",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "starter kit for node aplications in express and typescript",
   "keywords": [
     "express",
@@ -27,7 +27,7 @@
     "pretest": "npm run clean && npm run build",
     "test": "jest",
     "test:coverage": "jest --coverage --runInBand",
-    "prelint":"npm run clean && npm run build",
+    "prelint": "npm run clean && npm run build",
     "lint:fix": "eslint --fix src tests",
     "lint:openapi": "redocly lint docs/openapi.yaml",
     "lint": "eslint src tests && npm run lint:openapi",
