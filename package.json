@@ -59,7 +59,7 @@
     "simple-git": "^3.31.1",
     "swagger-ui-express": "^5.0.1",
     "typescript": "^5.9.3",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
