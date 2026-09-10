@@ -18,7 +18,7 @@ services:
       - type: bind
         source: './'
         target: '/usr/src/app'
-        read_only: true      
+        read_only: false      
 
   db:
     image: mysql:latest
