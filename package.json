@@ -45,7 +45,7 @@
     "docker:recreate": "npm run docker:down && npm run docker:up:build"
   },
   "dependencies": {
-    "@redocly/cli": "^2.26.0",
+    "@redocly/cli": "^2.34.0",
     "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
